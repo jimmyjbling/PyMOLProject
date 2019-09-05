@@ -100,3 +100,21 @@ try:
 except ImportError:
     pymol_not_found()
     sys.exit(1)
+
+if __name__ == '__main__':
+    code = 0
+
+    while True:
+        code = input("Enter 4 letter name of PDB protien file:  ")
+        if type(code) is not str:
+            print("enter a valid code string")
+        else:
+            break
+
+    pymol.finish_launching(['pymol', '-q'])  # open pymol in quiet mode
+    time.sleep(2)
+    pymol.cmd.fetch(code)  # gets protein code to load in
+    pymol.cmd.spectrum()
+    pymol.cmd.mset("1x180")
+    pymol.cmd.movie.roll(1, 180, 1)
+    pymol.cmd.movie.produce("movietest", mode="draw")
