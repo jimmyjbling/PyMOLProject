@@ -1,1 +1,1 @@
-Project version 0.1
+Project version 0.2
