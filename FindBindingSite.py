@@ -20,11 +20,12 @@ except ImportError:
 
 def shrake_and_rupley(atoms, box, npoints=500):
     """
-
-    :param atoms:
-    :param box:
-    :param npoints:
-    :return:
+    Uses the common shrake and rupley algroithum to find the SASA of the protien inside the box area of the protien
+    Will make sphere around each atom with npoints and check for other atom impacts
+    :param atoms: List of atoms an their info and chempy objects
+    :param box: A box object defining a rough area of the binding site
+    :param npoints: Set the number of points on each sphere, higher is more accurate but slower
+    :return: NONE
     """
     box_atoms = box.atoms_in_box
     box_radius = [x.vdw for x in box_atoms]
@@ -90,6 +91,11 @@ def shrake_and_rupley(atoms, box, npoints=500):
 
 
 def get_first_layer(threshold=3):
+    """
+    Finds all atoms in within threshold of each ligand atom and selects them
+    :param threshold: angstrom threshold of each search
+    :return: NONE
+    """
     ligand = AtomScripts.get_atoms('ligand')
     polymer = AtomScripts.get_atoms('polymer')
 
@@ -113,6 +119,14 @@ def get_first_layer(threshold=3):
 
 
 def combo(atoms, box, npoints=500, threshold=3):
+    """
+    Combines methods for more accurate selection
+    :param atoms: list of chempy atoms
+    :param box: box object of binding site
+    :param npoints: number of points for selection
+    :param threshold: angrstom selection threshold
+    :return: NONE
+    """
     shrake_and_rupley(atoms, box, npoints)
     get_first_layer(threshold)
     cmd.select("combo", "sasa_residues and first_layer_res")
