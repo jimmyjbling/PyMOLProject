@@ -14,7 +14,7 @@ except ImportError:
 
 if __name__ == '__main__':
     finish_launching(['pymol', '-q'])  # open pymol in quiet mode
-    pdbCode = AtomScripts.fetch_pdb('1azm') #4hla looks funny?
+    pdbCode = AtomScripts.fetch_pdb('4hla') #4hla looks funny?
     AtomScripts.select_user_selection('organic', 'ligand')
     centerPointLigand = AtomScripts.generate_center_point('ligand')
     myBox = DockingBox.Box(x_buff=6.5, y_buff=6.5, z_buff=6.5, center_point=centerPointLigand)
